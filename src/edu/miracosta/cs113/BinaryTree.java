@@ -1,42 +1,41 @@
+/**
+ * Generic BinaryTree class
+ */
+
 package edu.miracosta.cs113;
 
 import java.io.Serializable;
-import java.io.* ;
 import java.util.Scanner;
 
 public class BinaryTree<E> implements Serializable
 {
-    protected static class Node<E> implements Serializable
+    protected static class Node<E> implements Serializable  //inner class Node 'is' the data structure
     {
-
-        protected E data ;
-        protected Node<E> left ;
+        protected final E data ;    //data being stored
+        protected Node<E> left ;    //a reference to another node, or null if end of tree (leaf)
         protected Node<E> right ;
-        public Node(E data)
+        public Node(E data)     //constructor
         {
             this.data = data ;
             this.left = null ;
             this.right = null ;
         }
 
-        public String toString()
+        public String toString()        //printing a node prints the data
         {
             return data.toString() ;
         }
 
     }
+
     //member variable
+    protected Node<E> root ;    //the reference connecting to everything in the data structure
 
-    protected Node<E> root ;
+    //constructors
     public BinaryTree()
-    {
-        root = null ;
-    }
-
+    {        root = null ;    }
     public BinaryTree(Node<E> root)
-    {
-        this.root = root ;
-    }
+    {        this.root = root ;    }
     public BinaryTree(E data, BinaryTree<E> leftTree, BinaryTree<E> rightTree)
     {
         root = new Node<E>(data) ;
@@ -50,6 +49,7 @@ public class BinaryTree<E> implements Serializable
         else
             root.right = null ;
     }
+
     public BinaryTree<E> getLeftSubtree()
     {
         if (root != null && root.left != null)
@@ -65,16 +65,16 @@ public class BinaryTree<E> implements Serializable
         else
             return null ;
     }
-    public E getData()
+    public E getData()  //returns the data stored in the Node
     {
         return this.root.data;
     }
 
-    public boolean isLeaf()
+    public boolean isLeaf()     //returns true if Node has no more child Nodes
     {
         return (root.left == null && root.right == null) ;
     }
-    public String toString()
+    public String toString()                       //prints contents of BinaryTree with preorder traversal order
     {
         StringBuilder sb = new StringBuilder() ;
         preOrderTraverse(root, 1, sb) ;
